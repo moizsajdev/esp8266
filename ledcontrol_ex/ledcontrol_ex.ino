@@ -86,7 +86,8 @@ CalcTiming calcTiming;
 bool settingsFromJSON(Config c, String json);
 
 ESP8266WebServer webServer(80);
-
+int suhr,magrib;
+  
 void setupWiFi()
 {
 //  WiFi.mode(WIFI_AP);
@@ -151,17 +152,23 @@ void setup() {
   //Serial.println("waiting for sync");
   setSyncProvider(getNtpTime);
   setSyncInterval(SYNC_INTERVAL);
+  getSaumTime(suhr, magrib);
 }
-  int suhr,magrib;
+
 void loop()
 {
   if (timeStatus() != timeNotSet) {
-    if (minute(now()) == 0) getSaumTime(suhr, magrib);
-    showTime(hour(now()),  minute(now()), blink);
-    blink = !blink;
-    delay(499);
-    if(second(now())%10 == 0) showYear(year(now()));
-    else if (second(now())%5 == 0) showDateMonth(day(now()), month(now()));
+    if (hour(now()) == 0) getSaumTime(suhr, magrib);
+    if (second(now())%20 < 10) {     
+      showTime(hour(now()),  minute(now()), blink);
+      blink = !blink;
+      delay(499);
+      if(second(now())%10 == 0) showYear(year(now()));
+      else if (second(now())%5 == 0) showDateMonth(day(now()), month(now()));
+    } else {
+      showSaumTime(suhr, magrib);
+      delay(1000);
+    }
   }
 }
 void set_led_intensity(int intensity) {
