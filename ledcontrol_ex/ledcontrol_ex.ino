@@ -153,6 +153,8 @@ void setup() {
   setSyncProvider(getNtpTime);
   setSyncInterval(SYNC_INTERVAL);
   getSaumTime(suhr, magrib);
+  delay(1000);
+  showSaumTime(suhr, magrib);
 }
 
 void loop()

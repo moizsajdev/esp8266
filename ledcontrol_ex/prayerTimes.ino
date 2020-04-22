@@ -41,7 +41,7 @@ void getSaumTime(int &suhr, int &magrib)
   set_isha_angle(15);
 
  
-  get_prayer_times(year(), month(), day(), 12.93, 77.59, 5.5, times);
+  get_prayer_times(year(), month(), day(), 12.6518, 77.2086, 5.5, times);
   int hours, minutes;
   get_float_time_parts(times[5], hours, minutes);
   magrib = hours*100+minutes;
